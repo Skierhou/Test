@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Karcero</name>
+    </assembly>
+    <members>
+        <member name="P:Karcero.Engine.Models.DungeonConfiguration.Randomness">
+            <summary>
+            Controls how random the map is (how many twists and turns).
+            Value is between 0 and 1, higher value means more random.
+            </summary>
+        </member>
+        <member name="P:Karcero.Engine.Models.DungeonConfiguration.Sparseness">
+            <summary>
+            Controls how sparse the map is. 
+            Value is between 0 and 1, higher value means more sparse.
+            </summary>
+        </member>
+        <member name="P:Karcero.Engine.Models.DungeonConfiguration.ChanceToRemoveDeadends">
+            <summary>
+            Controls how many dead ends are left
+            Value is between 0 and 1, higher value == less deadends.
+            </summary>
+        </member>
+        <member name="P:Karcero.Engine.Models.DungeonConfiguration.MinRoomWidth">
+            <summary>
+            Minimum width for room generation
+            </summary>
+        </member>
+        <member name="P:Karcero.Engine.Models.DungeonConfiguration.MaxRoomWidth">
+            <summary>
+            Maximum width for room generation
+            </summary>
+        </member>
+        <member name="P:Karcero.Engine.Models.DungeonConfiguration.MinRoomHeight">
+            <summary>
+            Minimum height for room generation
+            </summary>
+        </member>
+        <member name="P:Karcero.Engine.Models.DungeonConfiguration.MaxRoomHeight">
+            <summary>
+            Maximum height for room generation
+            </summary>
+        </member>
+        <member name="P:Karcero.Engine.Models.DungeonConfiguration.RoomCount">
+            <summary>
+            Number of rooms to generate
+            </summary>
+        </member>
+    </members>
+</doc>
