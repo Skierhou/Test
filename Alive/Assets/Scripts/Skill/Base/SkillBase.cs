@@ -22,6 +22,8 @@ public abstract class SkillBase : BaseClass
     public int CFG_DamageCount;     //伤害次数
     [Config]
     public int CFG_DamageInterval;  //伤害间隔
+    [Config]
+    public int CFG_HitHardValue;    //击毁的硬值
 
     private Coroutine m_Coroutine;
 

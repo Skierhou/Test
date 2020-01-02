@@ -27,6 +27,8 @@ public class GamePanel:PanelBase
 
     //游戏信息
     private PlayerPawn player;
+
+    private Transform hpUIGrid;
     
 
     protected override void Awake()
@@ -42,6 +44,9 @@ public class GamePanel:PanelBase
         m_HpTxt = m_HpSlider.transform.GetComponentInChildren<Text>();
         m_MpTxt = m_MpSlider.transform.GetComponentInChildren<Text>();
         m_EnduranceTxt = m_EnduranceSlider.transform.GetComponentInChildren<Text>();
+        hpUIGrid = transform.Find("HpUIGrid");
+
+        UIManager.Instance.HpUIGird = hpUIGrid;
     }
 
     public override void OnPush()

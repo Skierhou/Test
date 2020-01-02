@@ -6,12 +6,19 @@ using DG.Tweening;
 [Config]
 public class AIPawn : Pawn
 {
+    private const string UI_ENEMYHP = "UI/EnemyHp";
+
     [Config]
-    public int CFG_DieMoney;    //死亡得到金币
+    public int CFG_DieMoney;        //死亡得到金币
     [Config]
     public float CFG_HardValue;     //怪物硬值
+    [Config]
+    public float CFG_HardStraightTime;      //硬值时间
+    [Config]
+    public float CFG_HpUIOffset;            //HpUI偏移
 
     public float hardValue;
+    private bool bHardStraight;
 
     //自身组件
     private CharacterController m_CC;
@@ -19,6 +26,7 @@ public class AIPawn : Pawn
 
     private AICmdAction m_AICmdAction;
     private GameObject m_Target;
+    private UI_EnemyHp m_HpUI;
 
     private bool bDie;
 
@@ -31,8 +39,14 @@ public class AIPawn : Pawn
         m_CC = GetComponent<CharacterController>();
         m_Trigger = GetComponent<BoxCollider>();
 
+        GameObject enemyUIGo = GameObjectPool.Instance.Spawn(UI_ENEMYHP,transform.position,Quaternion.identity);
+        m_HpUI = enemyUIGo.GetComponent<UI_EnemyHp>();
+        m_HpUI.Initialize(this);
+
         m_Trigger.enabled = false;
         m_Trigger.isTrigger = true;
+
+        hardValue = CFG_HardValue;
     }
 
     private void Start()
@@ -67,9 +81,7 @@ public class AIPawn : Pawn
 
                     if (pathList.Count > 1)
                     {
-                        //防止方向乱抖
-                        if(Vector3.Distance(pathList[1],transform.position) >= 0.1f)
-                            transform.LookAt(pathList[1]);
+                        transform.LookAt(pathList[1]);
                         m_CC.Move(transform.forward * CFG_Speed * Time.deltaTime);
                     }
                 }
@@ -82,14 +94,33 @@ public class AIPawn : Pawn
         }
     }
 
-    public override void TakeDamage(int inDamage, Vector3 inMovement, Pawn inCauser)
+    public void TakeDamage(int inDamage, Vector3 inMovement, Pawn inCauser, int inHardValue)
     {
+        if (bDie) return;
+
         base.TakeDamage(inDamage, inMovement, inCauser);
+
+        if (!bHardStraight)
+        {
+            hardValue -= inHardValue;
+            hardValue = Mathf.Max(0, hardValue);
+            if (hardValue <= 0)
+            {
+                bHardStraight = true;
+                Invoke("ResetHardValue", CFG_HardStraightTime);
+            }
+        }
 
         if (hp <= 0)
         {
             Died(inCauser);
         }
+    }
+    private void ResetHardValue()
+    {
+        bHardStraight = false;
+        hardValue = CFG_HardValue;
+        m_HpUI.RecoveryHardValue();
     }
 
     public virtual void Died(Pawn inCauser)

@@ -7,6 +7,9 @@ using UnityEngine;
 [Config]
 public class PlayerPawn : Pawn
 {
+    [Config]
+    public float CFG_AttackHardValue;   //普攻的击毁硬值
+
     private int m_Money;
 
     protected Animator m_Animator;
@@ -28,6 +31,11 @@ public class PlayerPawn : Pawn
         m_Anim = GetComponent<Animation>();
 
         m_SkillMgr = new SkillManager();
+        canMove = true;
+
+        //AnimationClip clip;
+        //clip.wrapMode = WrapMode.Loop;
+        //clip.legacy = false;
     }
 
     private void Update()
@@ -86,7 +94,20 @@ public class PlayerPawn : Pawn
         if (Input.GetKeyDown(KeyCode.Space))
             OnRoll();
     }
+    public override void TakeDamage(int inDamage, Vector3 inMovement, Pawn inCauser)
+    {
+        base.TakeDamage(inDamage, inMovement, inCauser);
 
+        if (hp <= 0)
+        {
+
+        }
+        else
+        {
+            //强行播放受击动画
+            
+        }
+    }
     protected virtual void OnMouseLeft()
     {
     }

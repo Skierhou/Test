@@ -3,11 +3,6 @@ using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
 
-public enum GOType
-{
-    
-}
-
 public class GameObjectPool : Singleton<GameObjectPool>
 {
     public Dictionary<string, List<GameObjectBase>> myPool = new Dictionary<string, List<GameObjectBase>>();

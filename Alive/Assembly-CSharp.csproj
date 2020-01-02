@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Art\Test.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Actions\BehaviorTreeReference.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Actions\Idle.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Actions\Log.cs" />
@@ -636,6 +637,7 @@
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUtils.cs" />
     <Compile Include="Assets\GameStart.cs" />
+    <Compile Include="Assets\ORCS\Scripts\WalkingOrc.cs" />
     <Compile Include="Assets\Scripts\Base\BaseClass.cs" />
     <Compile Include="Assets\Scripts\Base\Config.cs" />
     <Compile Include="Assets\Scripts\Base\State.cs" />
@@ -698,19 +700,19 @@
     <None Include="Assets\Art\Characters\Common\Effects\Materials\Dissolve.shader" />
     <None Include="Assets\DOTween\readme.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>E:/Alive/Alive/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/CppProject/Test/Alive/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>E:/Alive/Alive/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>D:/CppProject/Test/Alive/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>E:/Alive/Alive/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/CppProject/Test/Alive/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>E:/Alive/Alive/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/CppProject/Test/Alive/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>E:/Alive/Alive/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>D:/CppProject/Test/Alive/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -914,19 +916,19 @@
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="BehaviorDesignerRuntime">
-      <HintPath>E:/Alive/Alive/Assets/Behavior Designer/Runtime/BehaviorDesignerRuntime.dll</HintPath>
+      <HintPath>D:/CppProject/Test/Alive/Assets/Behavior Designer/Runtime/BehaviorDesignerRuntime.dll</HintPath>
     </Reference>
     <Reference Include="DOTween">
-      <HintPath>E:/Alive/Alive/Assets/DOTween/DOTween.dll</HintPath>
+      <HintPath>D:/CppProject/Test/Alive/Assets/DOTween/DOTween.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>E:/Alive/Alive/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>D:/CppProject/Test/Alive/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>E:/Alive/Alive/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>D:/CppProject/Test/Alive/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>E:/Alive/Alive/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>D:/CppProject/Test/Alive/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

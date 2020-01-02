@@ -12,9 +12,16 @@ public class UIManager:MonoSingleton<UIManager>
     private Stack<PanelBase> panels = new Stack<PanelBase>();
     private Dictionary<EPanelType, PanelBase> panelsDict = new Dictionary<EPanelType, PanelBase>();
 
+    //游戏界面的HP放置点
+    public Transform HpUIGird { get; set; }
+
+    public Canvas Canvas;
+
     private void Awake()
     {
         this.ReadConfig();
+
+        Canvas = GetComponent<Canvas>();
     }
 
     public void PushPanel(EPanelType inPanelType)

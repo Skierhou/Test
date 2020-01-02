@@ -433,6 +433,12 @@ public class Room:BaseClassMono
         Point startPoint = new Point(Mathf.RoundToInt((inStartLoc - transform.position).x), Mathf.RoundToInt((inStartLoc - transform.position).z));
         Point endPoint = new Point(Mathf.RoundToInt((inEndLoc - transform.position).x), Mathf.RoundToInt((inEndLoc - transform.position).z));
 
+        if (startPoint == endPoint)
+        {
+            outG = 0;
+            return new List<Vector3>();
+        }
+
         startPoint.Manhattan(endPoint.x, endPoint.y);
         openList.Add(startPoint);
         int f = startPoint.F;
