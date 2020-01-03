@@ -37,7 +37,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Basic.UnityAnimation
                 while (true)
                 {
                     tVec = MapManager.Instance.currentRoom.FindSpaceLind();
-                    if (Vector3.Distance(transform.position, tVec) >= 2)
+                    if (Vector3.Distance(transform.position, tVec) >= 3)
                     {
                         break;
                     }

@@ -34,6 +34,6 @@ public class GameStart : MonoBehaviour
     }
     private void LateUpdate()
     {
-        //cameraManager.LastUpdate();
+        cameraManager.LastUpdate();
     }
 }

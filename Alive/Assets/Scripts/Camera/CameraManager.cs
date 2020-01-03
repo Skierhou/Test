@@ -29,7 +29,7 @@ public class CameraManager : BaseClass
     public void SetTarget(GameObject inObj)
     {
         m_Target = inObj;
-        m_Camera.transform.position = inObj.transform.position - inObj.transform.forward * cameraHigh * Mathf.Cos(cameraAngle)
+        m_Camera.transform.position = inObj.transform.position - inObj.transform.forward * cameraHigh * Mathf.Tan(cameraAngle)
             + Vector3.up * cameraHigh;
         distance = m_Camera.transform.position - m_Target.transform.position;
         m_Camera.transform.LookAt(m_Target.transform);

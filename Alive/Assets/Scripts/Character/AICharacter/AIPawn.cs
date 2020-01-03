@@ -28,7 +28,8 @@ public class AIPawn : Pawn
     private GameObject m_Target;
     private UI_EnemyHp m_HpUI;
 
-    private bool bDie;
+    public bool bDie;
+    public bool bHit;
 
     private bool bStartAStarFind;
     private Vector3 m_TargetLoc;
@@ -108,6 +109,7 @@ public class AIPawn : Pawn
             {
                 bHardStraight = true;
                 Invoke("ResetHardValue", CFG_HardStraightTime);
+                bHit = true;
             }
         }
 

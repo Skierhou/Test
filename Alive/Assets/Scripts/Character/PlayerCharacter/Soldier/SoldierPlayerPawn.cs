@@ -25,7 +25,7 @@ public class SoldierPlayerPawn : PlayerPawn
     protected override void OnMouseLeft()
     {
         AnimatorStateInfo stateInfo = m_Animator.GetCurrentAnimatorStateInfo(0);
-        if (stateInfo.IsName("Blend Tree"))
+        if (stateInfo.IsName("Blend Tree") && !isAttacking)
         {
             isAttacking = true;
             m_Animator.SetTrigger("Attack");

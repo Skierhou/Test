@@ -244,7 +244,7 @@ public class MapManager:MonoSingleton<MapManager>
         {
             yield return null;
         }
-        inRoom.CloseDoor();
+        inRoom.OpenDoor();
         yield return null;
     }
 }

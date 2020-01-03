@@ -16,6 +16,9 @@ public class SoldierWeapon : WeaponBase
 {
     private ESoldierWeapon m_CurMode;
 
+    [Config]
+    public int CFG_HardValue;
+
     public SoldierWeapon(Pawn inOwner) : base(inOwner)
     {
 
@@ -53,7 +56,7 @@ public class SoldierWeapon : WeaponBase
                 AIPawn aiPawn = colliders[i].gameObject.GetComponent<AIPawn>();
                 if (aiPawn != null)
                 {
-                    aiPawn.TakeDamage(attackDamage, Vector3.zero, m_Owner);
+                    aiPawn.TakeDamage(attackDamage, Vector3.zero, m_Owner, CFG_HardValue);
                 }
             }
         }
