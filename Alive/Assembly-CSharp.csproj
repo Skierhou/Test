@@ -698,6 +698,7 @@
     <None Include="Assets\Art\Characters\Common\Models\Materials\CharactersV3.shader" />
     <None Include="Assets\Cinemachine\ReleaseNotes.txt" />
     <None Include="Assets\Art\Characters\Common\Effects\Materials\Dissolve.shader" />
+    <None Include="Assets\Frank_Warrior\Documentation\Frank_Warrior_Motion_List.txt" />
     <None Include="Assets\DOTween\readme.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/CppProject/Test/Alive/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
