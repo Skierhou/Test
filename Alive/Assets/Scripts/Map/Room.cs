@@ -18,7 +18,7 @@ public struct DoorData
     public bool IsFinalRoom;
 }
 
-public class Room:BaseClassMono
+public class Room : BaseClassMono
 {
     private const int DOORWIDTH = 5;
 
@@ -31,6 +31,8 @@ public class Room:BaseClassMono
     private BoxCollider m_Trigger;
 
     private int EnemyCount;
+    private bool bTrigger;
+    private bool bEndRoom;
 
     //房间内所有游戏物体
     List<GameObject> elementGoList;
@@ -42,7 +44,7 @@ public class Room:BaseClassMono
     private int cellWidth;
 
     public void Initialize(int inLength, Vector3 inStartPoint, int inCellWidth, GameObject inWallGoTemplate, GameObject inDoorGoTemplate
-        , GameObject[] inDestroyedGoTemplates, GameObject[] inObstacleGoTemplates,GameObject[] inGroundGoTemplates)
+        , GameObject[] inDestroyedGoTemplates, GameObject[] inObstacleGoTemplates, GameObject[] inGroundGoTemplates)
     {
         elementTypes = new ElementType[inLength, inLength];
         elementGoList = new List<GameObject>();
@@ -73,7 +75,7 @@ public class Room:BaseClassMono
     {
         for (int i = 0; i < doorGoList.Count; i++)
         {
-            doorGoList[i].transform.DOLocalMoveY(-1.5f,0.5f);
+            doorGoList[i].transform.DOLocalMoveY(-1.5f, 0.5f);
             doorGoList[i].OpenDoor();
         }
     }
@@ -99,7 +101,7 @@ public class Room:BaseClassMono
         CreateGround();
         CreateAllDoor(inPointList, inPoint);
         CreateWall();
-        EnemyCount = 0;
+        bTrigger = true;
     }
 
     /// <summary>
@@ -112,7 +114,7 @@ public class Room:BaseClassMono
         CreateWall();
         CreateObstacle(10);
         CreateDestroyedItem(10);
-        EnemyCount = 1;
+        EnemyCount = 2;
     }
 
     /// <summary>
@@ -123,13 +125,13 @@ public class Room:BaseClassMono
         CreateGround();
         CreateAllDoor(inPointList, inPoint);
         CreateWall();
-        EnemyCount = 0;
+        bEndRoom = true;
     }
 
     /// <summary>
     /// 获得元素的位置
     /// </summary>
-    private Vector3 GetElementPosition(int inX,int inY)
+    private Vector3 GetElementPosition(int inX, int inY)
     {
         Vector3 tVec = new Vector3
         {
@@ -149,7 +151,7 @@ public class Room:BaseClassMono
         {
             for (int j = 0; j < roomLength; j++)
             {
-                GameObject go = GameObject.Instantiate(GroundGoTemplates[Random.Range(0,GroundGoTemplates.Length)],transform);
+                GameObject go = GameObject.Instantiate(GroundGoTemplates[Random.Range(0, GroundGoTemplates.Length)], transform);
                 Vector3 tVec = GetElementPosition(i, j);
                 tVec.y -= 1;
                 go.transform.localPosition = tVec;
@@ -194,14 +196,14 @@ public class Room:BaseClassMono
         GameObject go = GameObject.Instantiate(WallGoTemplate, transform);
         go.transform.localPosition = GetElementPosition(inX, inY);
         elementGoList.Add(go);
-    }    
+    }
 
     /// <summary>
     /// 构建门
     /// </summary>
     private void CreateAllDoor(List<Vector2> inPointList, Vector2 inPoint)
     {
-        for (int i = 0; i<inPointList.Count; i++)
+        for (int i = 0; i < inPointList.Count; i++)
         {
             if (inPointList[i] != inPoint && Vector2.Distance(inPoint, inPointList[i]) == 1)
             {
@@ -210,7 +212,7 @@ public class Room:BaseClassMono
                 if (x == 1)
                 {
                     CreateDoor(DirectionType.Down);
-}
+                }
                 else if (x == -1)
                 {
                     CreateDoor(DirectionType.Up);
@@ -300,7 +302,7 @@ public class Room:BaseClassMono
             }
         }
     }
-    private void CreateOneDoor(int inX,int inY,int addX,int addY)
+    private void CreateOneDoor(int inX, int inY, int addX, int addY)
     {
         GameObject go;
         go = GameObject.Instantiate(DoorGoTemplate, transform);
@@ -350,7 +352,7 @@ public class Room:BaseClassMono
     {
         CreateElementInMap(inCount, CreateOneObstacle);
     }
-    private void CreateOneObstacle(int inX,int inY)
+    private void CreateOneObstacle(int inX, int inY)
     {
         if (elementTypes[inX, inY] == ElementType.None)
         {
@@ -365,7 +367,7 @@ public class Room:BaseClassMono
     {
         CreateElementInMap(inCount, CreateOneDestroyedItem);
     }
-    private void CreateOneDestroyedItem(int inX,int inY)
+    private void CreateOneDestroyedItem(int inX, int inY)
     {
         if (elementTypes[inX, inY] == ElementType.None)
         {
@@ -379,10 +381,17 @@ public class Room:BaseClassMono
 
     private void SpawnEnemy()
     {
-        int count = EnemyCount;
-        for (int i = 0; i < count; i++)
+        if (bEndRoom)
         {
-            CharacterManager.Instance.SpawnEnemy(FindGroundPosition());
+            //Boss
+        }
+        else
+        {
+            int count = EnemyCount;
+            for (int i = 0; i < count; i++)
+            {
+                CharacterManager.Instance.SpawnEnemy(FindGroundPosition());
+            }
         }
     }
     /// <summary>
@@ -420,7 +429,7 @@ public class Room:BaseClassMono
     /// AStar寻路到目标点
     /// </summary>
     /// <returns></returns>
-    public List<Vector3> AStarFind(Vector3 inStartLoc,Vector3 inEndLoc,out int outG)
+    public List<Vector3> AStarFind(Vector3 inStartLoc, Vector3 inEndLoc, out int outG)
     {
         //八方向的位置
         Point[] surroundPoints = new Point[] { new Point(-1,0), new Point(0, 1), new Point(0, -1),new Point(1,0)
@@ -451,7 +460,7 @@ public class Room:BaseClassMono
 
             tempList.Clear();
             int minG = openList.Min((p) => p.g);
-            f = openList.Min((p)=>p.F);
+            f = openList.Min((p) => p.F);
             for (int i = 0; i < openList.Count; i++)
             {
                 if (openList[i].F == f)
@@ -525,12 +534,12 @@ public class Room:BaseClassMono
             if (endPoint.g > 0)
                 break;
         }
-        
+
         List<Vector3> pathList = new List<Vector3>();
         outG = endPoint.g;
         while (endPoint != null)
         {
-            pathList.Add(GetElementPosition(endPoint.x,endPoint.y) + transform.position);
+            pathList.Add(GetElementPosition(endPoint.x, endPoint.y) + transform.position);
             endPoint = endPoint.parent;
         }
         pathList.Reverse();
@@ -548,8 +557,12 @@ public class Room:BaseClassMono
         if (other.GetComponent<PlayerPawn>() != null)
         {
             MapManager.Instance.currentRoom = this;
-            if(EnemyCount > 0)
+            if (!bTrigger)
+            {
                 CloseDoor();
+                MapManager.Instance.MonitorRoomCanClose(this, EnemyCount);
+                bTrigger = true;
+            }
         }
     }
 }

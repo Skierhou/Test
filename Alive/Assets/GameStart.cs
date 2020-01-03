@@ -27,10 +27,6 @@ public class GameStart : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            CharacterManager.Instance.TakeDamage();
-        }
         if (Input.GetKeyDown(KeyCode.X))
         {
             MapManager.Instance.CloseDoor();
@@ -38,6 +34,6 @@ public class GameStart : MonoBehaviour
     }
     private void LateUpdate()
     {
-        cameraManager.LastUpdate();
+        //cameraManager.LastUpdate();
     }
 }

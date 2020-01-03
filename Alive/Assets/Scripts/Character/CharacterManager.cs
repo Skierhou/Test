@@ -31,12 +31,10 @@ class CharacterManager : Singleton<CharacterManager>
         return m_Player;
     }
 
-    public void TakeDamage()
+    public void EnemyDied(AIPawn inAIPawn)
     {
-        for (int i = 0; i < m_AllAIPawn.Count; i++)
-        {
-            m_AllAIPawn[i].TakeDamage(m_AllAIPawn[i].hp,Vector3.zero, m_AllAIPawn[i]);
-        }
+        m_AllAIPawn.Remove(inAIPawn);
+        MapManager.Instance.enemyCount--;
     }
 
     public Pawn Player { get { return m_Player; } }

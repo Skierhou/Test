@@ -18,7 +18,11 @@ public class PlayerPawn : Pawn
     protected SkillManager m_SkillMgr;
     protected Rigidbody m_Rigidbody;
 
-    private bool canMove;
+    protected bool isAttacking;
+
+    private float rotationSmoothing = 1000;
+
+    private bool canMove = true;
 
     public int Money { get => m_Money; private set => m_Money = value; }
 
@@ -31,14 +35,9 @@ public class PlayerPawn : Pawn
         m_Anim = GetComponent<Animation>();
 
         m_SkillMgr = new SkillManager();
-        canMove = true;
-
-        //AnimationClip clip;
-        //clip.wrapMode = WrapMode.Loop;
-        //clip.legacy = false;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if(m_Weapon != null)
             m_Weapon.OnUpdate();
@@ -61,24 +60,25 @@ public class PlayerPawn : Pawn
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        if (x != 0 || z != 0)
-        {
-            m_Rigidbody.WakeUp();
-            if (!m_Anim.IsPlaying("Run1"))
-            {
-                m_Anim.Play("Run1");
-            }
-            transform.forward = new Vector3(x, 0, z).normalized;
-            m_Rigidbody.MovePosition(transform.position + new Vector3(x, 0, z).normalized * CFG_Speed * Time.fixedDeltaTime);
-        }
+        Vector3 stickDirection = new Vector3(x, 0, z);
+        if (stickDirection.sqrMagnitude > 1) stickDirection.Normalize();
+        float speedOut;
+
+        if (!isAttacking)
+            speedOut = stickDirection.sqrMagnitude;
         else
         {
-            if (!m_Anim.IsPlaying("Fidle0"))
-            {
-                m_Anim.Play("Fidle0");
-            }
-            m_Rigidbody.Sleep();
+            speedOut = 0.2f;
+            m_Rigidbody.MovePosition(transform.position + stickDirection * CFG_Speed * Time.fixedDeltaTime * speedOut);
         }
+
+        if (stickDirection != Vector3.zero)
+        {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(stickDirection, Vector3.up), rotationSmoothing * Time.deltaTime);
+            if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Blend Tree"))
+                m_Rigidbody.MovePosition(transform.position + stickDirection * CFG_Speed * Time.fixedDeltaTime);
+        }
+        m_Animator.SetFloat("Speed", speedOut);
     }
 
     /// <summary>
@@ -100,12 +100,12 @@ public class PlayerPawn : Pawn
 
         if (hp <= 0)
         {
-
+            m_Animator.SetBool("Die", true);
         }
         else
         {
             //强行播放受击动画
-            
+            m_Animator.SetTrigger("Hit");
         }
     }
     protected virtual void OnMouseLeft()

@@ -138,6 +138,8 @@ public class AIPawn : Pawn
         }
         bDie = true;
         m_Trigger.enabled = true;
+
+        CharacterManager.Instance.EnemyDied(this);
     }
 
 

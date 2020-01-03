@@ -8,6 +8,7 @@ enum ESoldierWeapon
     ESoldier_AttackOne,
     ESoldier_AttackTwo,
     ESoldier_AttackThree,
+    ESoldier_AttackFour,
 };
 
 [Config]
@@ -15,7 +16,7 @@ public class SoldierWeapon : WeaponBase
 {
     private ESoldierWeapon m_CurMode;
 
-    public SoldierWeapon(Pawn inOwner):base(inOwner)
+    public SoldierWeapon(Pawn inOwner) : base(inOwner)
     {
 
     }

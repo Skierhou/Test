@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MapManager:MonoSingleton<MapManager>
@@ -12,6 +14,7 @@ public class MapManager:MonoSingleton<MapManager>
     private Vector3 StartLoc;
 
     public Room currentRoom;
+    public int enemyCount;
 
     List<Room> RoomList = new List<Room>();
 
@@ -160,7 +163,7 @@ public class MapManager:MonoSingleton<MapManager>
         int count = 0;
         while (tPointList.Count <= 2 && inRoomCount > 0)
         {
-            if (Random.value > 0.5f && inRoomCount > 0)
+            if (UnityEngine.Random.value > 0.5f && inRoomCount > 0)
             {
                 //左
                 if (inIntMap[inX - 1, inY] == 0)
@@ -170,7 +173,7 @@ public class MapManager:MonoSingleton<MapManager>
                     tPointList.Add(new Vector2(inX - 1, inY));
                 }
             }
-            if (Random.value > 0.5f && inRoomCount > 0)
+            if (UnityEngine.Random.value > 0.5f && inRoomCount > 0)
             {
                 //右
                 if (inIntMap[inX + 1, inY] == 0)
@@ -180,7 +183,7 @@ public class MapManager:MonoSingleton<MapManager>
                     tPointList.Add(new Vector2(inX + 1, inY));
                 }
             }
-            if (Random.value > 0.5f && inRoomCount > 0)
+            if (UnityEngine.Random.value > 0.5f && inRoomCount > 0)
             {
                 //上
                 if (inIntMap[inX, inY + 1] == 0)
@@ -190,7 +193,7 @@ public class MapManager:MonoSingleton<MapManager>
                     tPointList.Add(new Vector2(inX, inY + 1));
                 }
             }
-            if (Random.value > 0.5f && inRoomCount > 0)
+            if (UnityEngine.Random.value > 0.5f && inRoomCount > 0)
             {
                 //下
                 if (inIntMap[inX, inY - 1] == 0)
@@ -218,42 +221,30 @@ public class MapManager:MonoSingleton<MapManager>
         }
     }
 
-    public void OpenDoor(Pawn inPlayer)
-    {
-        float minDis = float.MaxValue;
-        Room tRoom = null;
-        for (int i = 0; i < RoomList.Count; i++)
-        {
-            if (Vector3.Distance(inPlayer.transform.position, RoomList[i].transform.position) < minDis)
-            {
-                minDis = Vector3.Distance(inPlayer.transform.position, RoomList[i].transform.position);
-                tRoom = RoomList[i];
-            }
-        }
-        if(tRoom != null)
-            tRoom.OpenDoor();
-    }
-    public void CloseDoor(Pawn inPlayer)
-    {
-        float minDis = float.MaxValue;
-        Room tRoom = null;
-        for (int i = 0; i < RoomList.Count; i++)
-        {
-            if (Vector3.Distance(inPlayer.transform.position, RoomList[i].transform.position) < minDis)
-            {
-                minDis = Vector3.Distance(inPlayer.transform.position, RoomList[i].transform.position);
-                tRoom = RoomList[i];
-            }
-        }
-        if (tRoom != null)
-            tRoom.CloseDoor();
-    }
-
     public void CloseDoor()
     {
         for (int i = 0; i < RoomList.Count; i++)
         {
             RoomList[i].CloseDoor();
         }
+    }
+
+    /// <summary>
+    /// 监听房间是否能关闭
+    /// </summary>
+    public void MonitorRoomCanClose(Room inRoom,int inEnemyCount)
+    {
+        StartCoroutine(StartMonitor(inRoom, inEnemyCount));
+    }
+
+    private IEnumerator StartMonitor(Room inRoom, int inEnemyCount)
+    {
+        enemyCount = inEnemyCount;
+        while (enemyCount > 0)
+        {
+            yield return null;
+        }
+        inRoom.CloseDoor();
+        yield return null;
     }
 }
